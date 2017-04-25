@@ -506,6 +506,11 @@
       state: absent
     when: ansible_os_family == 'RedHat'
 
+  - name: check for anything running ceph
+    shell: "ps awux | grep -- /usr/bin/[c]eph-"
+    register: check_for_running_ceph
+    failed_when: check_for_running_ceph.rc == 0
+
 
 - name: purge fetch directory
 
